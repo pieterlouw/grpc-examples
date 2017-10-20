@@ -12,9 +12,8 @@ import (
 )
 
 type serviceNode struct {
-	ID      string
-	Address string
-	Port    string
+	id      string
+	address string
 }
 
 type args struct{}
@@ -22,16 +21,16 @@ type args struct{}
 var (
 	nodes = []*serviceNode{
 		{
-			ID:      "backend.service1",
-			Address: ":7001",
+			id:      "backend.service1",
+			address: ":7001",
 		},
 		{
-			ID:      "backend.service2",
-			Address: ":7002",
+			id:      "backend.service2",
+			address: ":7002",
 		},
 		{
-			ID:      "backend.service3",
-			Address: ":7003",
+			id:      "backend.service3",
+			address: ":7003",
 		},
 	}
 	c uint64
@@ -62,9 +61,9 @@ func main() {
 			log.Fatalf("err selectNode %v", err)
 		}
 
-		log.Printf("Node selected: %s (%s)\n", node.ID, node.Address)
+		log.Printf("Node selected: %s (%s)\n", node.id, node.address)
 
-		conn, err := grpc.Dial(node.Address, grpc.WithInsecure())
+		conn, err := grpc.Dial(node.address, grpc.WithInsecure()) // <-- One can implement a connection pool and select a connection from the pool here instead of creating a new one
 		if err != nil {
 			log.Fatalf("grpc.Dial err: %v", err)
 		}
