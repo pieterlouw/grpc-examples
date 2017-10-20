@@ -19,11 +19,6 @@ var (
 
 func main() {
 	flag.Parse()
-	// listen on one port
-
-	// proxy per service + method
-
-	// proxy per service
 
 	director := func(ctx context.Context, fullMethodName string) (*grpc.ClientConn, error) {
 		log.Println("director: ", fullMethodName)
@@ -56,37 +51,4 @@ func main() {
 		log.Fatalf("failed to serve: %v", err)
 	}
 
-	//pb_test.RegisterTestServiceServer(server, &testImpl{})
-
 }
-
-/*
-	customDirector := func(ctx context.Context, fullMethodName string) (*grpc.ClientConn, error) {
-		// Make sure we never forward internal services.
-		if strings.HasPrefix(fullMethodName, "/com.example.internal.") {
-			return nil, grpc.Errorf(codes.Unimplemented, "Unknown method")
-		}
-		md, ok := metadata.FromContext(ctx)
-		if ok {
-			// Decide on which backend to dial
-			if val, exists := md[":authority"]; exists && val[0] == "staging.api.example.com" {
-				// Make sure we use DialContext so the dialing can be cancelled/time out together with the context.
-				return grpc.DialContext(ctx, "api-service.staging.svc.local", grpc.WithCodec(proxy.Codec()))
-			} else if val, exists := md[":authority"]; exists && val[0] == "api.example.com" {
-				return grpc.DialContext(ctx, "api-service.prod.svc.local", grpc.WithCodec(proxy.Codec()))
-			}
-		}
-		return nil, grpc.Errorf(codes.Unimplemented, "Unknown method")
-	}
-
-	server := grpc.NewServer(
-		grpc.CustomCodec(proxy.Codec()),
-		grpc.UnknownServiceHandler(proxy.TransparentHandler(customDirector)))
-*/
-
-//backendConn, err := grpc.Dial(*proxyDest, grpc.WithInsecure())
-//if err != nil {
-//	log.Fatalf("grpc.Dial err: %v", err)
-//}
-
-//var director proxy.StreamDirector
