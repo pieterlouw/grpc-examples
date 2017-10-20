@@ -1,3 +1,4 @@
+// This is a basic example of how to implement client side load balancing in a gRPC service
 package main
 
 import (
@@ -48,8 +49,6 @@ func main() {
 		{"multiply", []int64{4, 100}},
 		{"multiply", []int64{5, 100}},
 	}
-
-	//flag.Parse()
 
 	ctx := context.Background()
 
