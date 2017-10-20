@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+
+service StringsService {
+    rpc Reverse(ReverseRequest) returns (ReverseResponse) {}
+    rpc Concat(ConcatRequest) returns (ConcatResponse) {}
+}
+
+message ReverseRequest {
+    string value = 1;
+}
+
+message ReverseResponse {
+    string reversed = 1;
+}
+
+message ConcatRequest {
+    string value1 = 1;
+    string value2 = 2;
+}
+
+message ConcatResponse {
+    string concatenated = 1;
+}
